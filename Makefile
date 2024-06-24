@@ -1,14 +1,13 @@
-NAME = philo
+NAME		= philo
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
 
-SCR= main.c \
-	utils.c	\
-	extra.c	\
-	time.c \
-	simulation.c \
+SRC			= philo.c /
+				parse.c utils.c /
+				doing_things.c /
+				init.c
 
-OBJ = $(SCR:.c=.o)
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3
+OBJ = $(SRC:.c=.o)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
