@@ -6,14 +6,14 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 10:42:46 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/24 15:03:22 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:17:01 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int	bad(char *reason);
-
+void	ft_putstr_fd(char *s, int fd);
  
 int	checkargs(int ac, char **av)
 {
@@ -34,7 +34,7 @@ int	checkargs(int ac, char **av)
 		while (av[i][j])
 		{
 			if (!isdigit(av[i][j]))
-				return (error("arguments is negative"), 1);
+				return (bad("arguments is negative"), 1);
 			j++;
 		}
 		i++;
@@ -60,4 +60,62 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+}
+void	print_write(t_data *data, int id, char *print)
+{
+	pthread_mutex_lock(&data->write);
+	if(!data->resources->kill_all)
+		printf("%zu %d %s\n", get_time() - data->time, id, print);
+	pthread_mutex_unlock(&data->write);
+}
+
+int	ft_atoi(const char *str)
+{
+	long			result;
+	long			sign;
+	unsigned int	i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == 45 || str[i] == 43)
+	{
+		if (str[i] == 45)
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (result >= LONG_MAX / 10 && sign == 1)
+			return (-1);
+		else if (result >= LONG_MAX / 10 && sign == -1)
+			return (0);
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return ((int)result * sign);
+}
+
+void	handle_one(t_data	*data)
+{
+	pthread_mutex_lock(&data->resources->left_fork);
+	print_write(data, 1, "has taken a fork");
+	pthread_mutex_unlock(&data->resources->left_fork);
+	pthread_mutex_lock(&data->resources->perished_philo);
+	printf("%zu %d %s\n", data->resources->hour_of_demise,
+		data->resources->philo, "died");
+	data->white_flag = 1;
+	pthread_mutex_unlock(&data->resources->perished_philo);
+}
+void	every_die(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	pthread_mutex_lock(&data->write);
+	while (++i < data->tphilos)
+		data->resources[i].kill_all = 1;
+	pthread_mutex_unlock(&data->write);
 }

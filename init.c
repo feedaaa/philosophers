@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/24 13:08:44 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:11:26 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init(char **av, t_data *data, t_philo *philo)
 	philos = ft_atoi(av[1]);
 	data->tphilos = philos;
 	data->resources = philo;
-	if(data->resources = NULL)
+	if(data->resources == NULL)
 	{
 		bad("error: allocation failed\n");
 		exit(1);

@@ -1,17 +1,17 @@
-NAME		= philo
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-
-SRC			= philo.c /
-				parse.c utils.c /
-				doing_things.c /
-				init.c
+NAME        = philo
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
+SRC         = philo.c  utils.c doing_things.c init.c time.c
 
 OBJ = $(SRC:.c=.o)
+
+all: $(NAME)
+
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-all: $(NAME)
+%.o: %.c $(OBJ))
+	$(CC) $(CFLAGS) -c
 
 clean:
 	rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:34:52 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/24 15:43:41 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:17:05 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
-#include "libft/libft.h"
+#include <ctype.h>
+#include <limits.h>
+#include <sys/time.h>
 
-# define RED "\033[0;31m"
 
-typedef struct s_data
-{
-	int					tphilos;
-	int					white_flag;
-	size_t				time;
-	t_philo				*resources;
-	pthread_mutex_t		write;
-	pthread_mutex_t		did_he_die;
-}			t_data;
+# define TAKE_FORK "has taken a fork"
+# define THINK "is thinking"
+# define SLEEP "is sleeping"
+# define EAT "is eating"
+# define DIED "has died"
 
 typedef struct s_philo
 {
@@ -48,13 +45,27 @@ typedef struct s_philo
 	pthread_mutex_t		*right_fork;
 }				t_philo;
 
+typedef struct s_data
+{
+	int					tphilos;
+	int					white_flag;
+	size_t				time;
+	t_philo				*resources;
+	pthread_mutex_t		write;
+	pthread_mutex_t		did_he_die;
+}			t_data;
+
+
 void	init(char **av, t_data *data, t_philo *philo);
+void	*dinner(t_data *data);
 
 int	bad(char *reason);
 int	checkargs(int ac, char **av);
 
-
-//--------------UTILS------------------//
 void	ft_putstr_fd(char *s, int fd);
-
+void	print_write(t_data *data, int id, char *print);
+int	ft_atoi(const char *str);
+size_t	get_time(void);
+void	handle_one(t_data	*data);
+void	every_die(t_data *data);
 #endif
