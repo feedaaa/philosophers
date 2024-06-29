@@ -6,12 +6,12 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/26 10:11:26 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/29 13:06:45 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <semaphore.h>
+
 void init_philo(t_data *data, char **av);
 
 void	init(char **av, t_data *data, t_philo *philo)

@@ -1,0 +1,72 @@
+#include "philo.h"  // Include header file defining t_data and t_philo structs
+
+// Function to initialize philosopher data (likely called in a separate thread)
+void init_philo(t_data *data, char **av) {
+    int     i;
+
+    i = -1;  // Initialize loop counter (pre-incremented for 0-based indexing)
+    while (++i < data->tphilos) {  // Loop through each philosopher
+        // Initialize mutex for each philosopher to track death state
+        pthread_mutex_init(&data->resources[i].perished_philo, NULL);
+
+        // Flags for philosopher actions (to be implemented)
+        data->resources[i].kill_all = 0;
+        data->resources[i].meals_done = 0;
+
+        // Assign philosopher ID (1-based)
+        data->resources[i].philo = i + 1;
+
+        // Get parameters from command-line arguments
+        data->resources[i].hour_of_demise = ft_atoi(av[2]);  // Time of death (simulation parameter)
+        data->resources[i].time_to_eat = ft_atoi(av[3]);       // Time to eat (simulation parameter)
+        data->resources[i].time_to_sleep = ft_atoi(av[4]);    // Time to sleep (simulation parameter)
+
+        // Handle optional argument for number of meals
+        if (av[5]) {
+            data->resources[i].meals = ft_atoi(av[5]);
+        } else {
+            data->resources[i].meals = -1;  // Unlimited meals if not specified
+        }
+
+        // Initialize time of last meal (likely 0 at the beginning)
+        data->resources[i].last_meal_time = get_time(); // Replace with actual function to get time
+
+        // Assign pointer to main data structure for each philosopher
+        data->resources[i].data = data;
+
+        // Initialize mutexes for each philosopher's forks
+        pthread_mutex_init(&data->resources[i].left_fork, NULL);
+
+        // Create circular arrangement of forks (last philosopher's right fork points to first one's left)
+        if (i == data->tphilos - 1) {
+            data->resources[i].right_fork = &data->resources[0].left_fork;
+        } else {
+            data->resources[i].right_fork = &data->resources[i + 1].left_fork;
+        }
+    }
+}
+
+// Function for main initialization (likely called in the main thread)
+void    init(char **av, t_data *data, t_philo *philo) {
+    int     philos;
+
+    // Get number of philosophers from command line argument
+    philos = ft_atoi(av[1]);
+    data->tphilos = philos;
+
+    // Assign philosopher data array to resources member in main data structure
+    data->resources = philo;
+
+    // Check if allocation failed (resources might be NULL)
+    if(data->resources == NULL) {
+        bad("error: allocation failed\n");
+        exit(1);
+    }
+
+    // Initialize mutexes for global data access (did_he_die for philosopher death and write for data consistency)
+    pthread_mutex_init(&data->did_he_die, NULL);
+    pthread_mutex_init(&data->write, NULL);
+
+    // Call init_philo to initialize individual philosopher data
+    init_philo(data, av);
+}
