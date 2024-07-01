@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/29 13:06:45 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/29 20:34:11 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void init_philo(t_data *data, char **av)
 {
 	int		i;
 	
+	
 	i = -1;
+	
 	while (++i < data->tphilos)
 	{
 		pthread_mutex_init(&data->resources[i].perished_philo, NULL);
 		data->resources[i].kill_all = 0;
 		data->resources[i].meals_done = 0;
-		data->resources[i].philo = i + 1;
+		data->resources[i].philo = i + 1;	
 		data->resources[i].hour_of_demise = ft_atoi(av[2]);
 		data->resources[i].time_to_eat = ft_atoi(av[3]);
 		data->resources[i].time_to_sleep = ft_atoi(av[4]);

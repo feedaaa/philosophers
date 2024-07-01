@@ -70,3 +70,14 @@ void    init(char **av, t_data *data, t_philo *philo) {
     // Call init_philo to initialize individual philosopher data
     init_philo(data, av);
 }
+
+void	initialize(char **av, t_data *data, t_philo *philo)
+{
+	int		philos;
+
+	philos = av[1];
+	data->tphilos = philos;
+
+	data->resources = philo;
+	
+}

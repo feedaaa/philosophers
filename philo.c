@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:58:06 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/29 12:57:49 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:10:29 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int main(int ac, char **av)
 {
 	t_data		table;
 	t_philo		philo[200];
-	int			i;
 
-	i = 0;
 	if (checkargs(ac, av))
 		return (0);
 	if (ft_atoi(av[1]) > 200)
@@ -26,4 +24,5 @@ int main(int ac, char **av)
 	init(av, &table, philo);
 	dinner(&table);
 	//destroy the threads
+	return (0);
 }
