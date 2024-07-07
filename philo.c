@@ -3,26 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:58:06 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/30 17:10:29 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/07 09:26:27 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+t_table *init(char **av)
+{
+	t_table *table;
+	table = init_table(av);
+	if (!table)
+		return(NULL);
+	table->data = init_data(av);
+	if(!table->data)
+	{
+		free(table->forks);
+		free(table);
+		return(NULL);
+	}
+	table->philo = init_philo(table);
+	if(!table->philo)
+	{
+		free(table->data);
+		free(table->forks);
+		free(table);
+		return(NULL);
+	}
+	return(table);
+}
+int philo(int ac, char **av)
+{
+	t_table *table;
+	if(parse(ac, av) == ERROR)
+		return(ERROR);
+	table = init(av);
+	if (!table)
+		return(ERROR);
+	if (init_threads(&table) == ERROR)
+		return(ERROR);
+	collect_philo(&table);
+	clean_table(table);
+	return(DONE);
+}
 int main(int ac, char **av)
 {
-	t_data		table;
-	t_philo		philo[200];
-
-	if (checkargs(ac, av))
-		return (0);
-	if (ft_atoi(av[1]) > 200)
-		return(bad("too many philosophers, the table isnt that big\n"));
-	init(av, &table, philo);
-	dinner(&table);
-	//destroy the threads
-	return (0);
+	if (philo(ac, av) == ERROR);
+		return (EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

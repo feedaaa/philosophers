@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:34:52 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/01 13:54:58 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/07 09:41:43 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 #include <limits.h>
 #include <sys/time.h>
 
+#define ERROR 1
+#define DONE 0
+
+// philo state
+#define DEAD -3
+#define THINK 0
+#define PICK_FORK 1
+#define SLEEP 2
+#define EAT 3
 
 /**
  * eat: time to eat
@@ -28,14 +37,14 @@
  * sleep: time to sleep
  * cycle: number of times each philosopher should eat 
 **/
-typedef struct s_info
+typedef struct s_data
 {
 	int			num;
 	int			t_eat;
 	int			t_death;
 	int			t_sleep;
 	int			cycle;
-}	t_info;
+}	t_data;
 
 /**
  * id: philosopher id
@@ -73,7 +82,7 @@ typedef struct s_philo
 	int				*right_fork;
 	int				neat;
 	size_t			last_eat;
-	t_info			*info;
+	t_data			*data;
 	pthread_mutex_t	*left_mutex;
 	pthread_mutex_t	*right_mutex;
 	pthread_mutex_t	*print;
@@ -103,9 +112,9 @@ typedef struct s_table
 	pthread_t		*threads;
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	print;
-	t_info			*info;
+	t_data			*data;
 	t_philo			*philo;
 }	t_table;
 
-
+void printit(char *reason);
 #endif

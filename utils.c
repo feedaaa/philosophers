@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 10:42:46 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/29 20:07:32 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/07 09:34:18 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ int	checkargs(int ac, char **av)
 	return (0);
 }
 
-int	bad(char *reason)
+void printit(char *reason)
 {
 	ft_putstr_fd(reason, 2);
-	return (0);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -61,7 +60,7 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-void	print_write(t_data *data, int id, char *print)
+void	print_it(t_data *data, int id, char *print)
 {
 	pthread_mutex_lock(&data->write);
 	if(!data->resources->kill_all)

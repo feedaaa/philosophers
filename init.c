@@ -3,61 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/06/29 20:34:11 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/07 09:39:46 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_philo(t_data *data, char **av);
+int init_forks(t_table **table, int count);
 
-void	init(char **av, t_data *data, t_philo *philo)
+t_table *init_table(char **av);
+
+t_data init_data(char **av);
+
+void all_data(t_table *table, t_philo *philo, int id)
 {
-	int		philos;
-
-	philos = ft_atoi(av[1]);
-	data->tphilos = philos;
-	data->resources = philo;
-	if(data->resources == NULL)
+	(*philo).id = id;
+	(*philo).state = PICK_FORK;
+	(*philo).check_death = &table->check_death;
+	(*philo).start_time = &table->start_time;
+	(*philo).left_forkn = id;
+	(*philo).left_fork = &table->forks[id - 1];
+	(*philo).left_mutex = &table->mutex[id - 1];
+	if (id == table->data->num)
 	{
-		bad("error: allocation failed\n");
-		exit(1);
+		(*philo).right_forkn = 1;
+		(*philo).right_fork = &table->forks[0];
+		(*philo).right_mutex = &table->mutex[0];
 	}
-	data->white_flag = 0;
-	pthread_mutex_init(&data->did_he_die, NULL);
-	pthread_mutex_init(&data->write, NULL);
-	init_philo(data, av);
+	else
+	{
+		(*philo).right_forkn = id + 1;
+		(*philo).right_fork = &table->forks[id];
+		(*philo).right_mutex = &table->mutex[id];
+	}
+	(*philo).data = table->data;
+	(*philo).neat = 0;
+	(*philo).last_eat = 0;
+	(*philo).print = &table->print;
 }
-
-void init_philo(t_data *data, char **av)
+void init_philo(t_table *table)
 {
-	int		i;
-	
-	
+	int i;
+	t_philo *philo;
+
 	i = -1;
-	
-	while (++i < data->tphilos)
+	philo = (t_philo *)malloc(sizeof(t_philo) * (table->data->num));
+	if(!philo)
 	{
-		pthread_mutex_init(&data->resources[i].perished_philo, NULL);
-		data->resources[i].kill_all = 0;
-		data->resources[i].meals_done = 0;
-		data->resources[i].philo = i + 1;	
-		data->resources[i].hour_of_demise = ft_atoi(av[2]);
-		data->resources[i].time_to_eat = ft_atoi(av[3]);
-		data->resources[i].time_to_sleep = ft_atoi(av[4]);
-		if (av[5])
-			data->resources[i].meals = ft_atoi(av[5]);
-		else
-			data->resources[i].meals = -1;
-		data->resources[i].last_meal_time = get_time(); //create
-		data->resources[i].data = data;
-		pthread_mutex_init(&data->resources[i].left_fork, NULL);
-		if (i == data->tphilos - 1)
-			data->resources[i].right_fork = &data->resources[0].left_fork;
-		else
-			data->resources[i].right_fork = &data->resources[i + 1].left_fork;
+		free(table);
+		printit("philo failed: malloc error");
+		return (NULL);
 	}
+	while(++i < table->data->num)
+		all_data(table, &(philo[i]), i + 1);
+	return (philo);
 }
