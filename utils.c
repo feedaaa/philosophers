@@ -6,13 +6,12 @@
 /*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 10:42:46 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/07 09:34:18 by fee              ###   ########.fr       */
+/*   Updated: 2024/07/21 17:08:51 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	bad(char *reason);
 void	ft_putstr_fd(char *s, int fd);
  
 int	checkargs(int ac, char **av)
@@ -60,13 +59,6 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-void	print_it(t_data *data, int id, char *print)
-{
-	pthread_mutex_lock(&data->write);
-	if(!data->resources->kill_all)
-		printf("%zu %d %s\n", get_time() - data->time, id, print);
-	pthread_mutex_unlock(&data->write);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -95,26 +87,4 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return ((int)result * sign);
-}
-
-void	handle_one(t_data	*data)
-{
-	pthread_mutex_lock(&data->resources->left_fork);
-	print_write(data, 1, "has taken a fork");
-	pthread_mutex_unlock(&data->resources->left_fork);
-	pthread_mutex_lock(&data->resources->perished_philo);
-	printf("%zu %d %s\n", data->resources->hour_of_demise,
-		data->resources->philo, "died");
-	data->white_flag = 1;
-	pthread_mutex_unlock(&data->resources->perished_philo);
-}
-void	every_die(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	pthread_mutex_lock(&data->write);
-	while (++i < data->tphilos)
-		data->resources[i].kill_all = 1;
-	pthread_mutex_unlock(&data->write);
 }

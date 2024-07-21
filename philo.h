@@ -6,7 +6,7 @@
 /*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:34:52 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/07 09:41:43 by fee              ###   ########.fr       */
+/*   Updated: 2024/07/21 16:32:23 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 #define ERROR 1
 #define DONE 0
+#define MALLOC_ERROR "philo: allocation error"
 
 // philo state
 #define DEAD -3
@@ -40,9 +41,9 @@
 typedef struct s_data
 {
 	int			num;
-	int			t_eat;
-	int			t_death;
-	int			t_sleep;
+	int			time_to_eat;
+	int			time_to_die;
+	int			time_to_sleep;
 	int			cycle;
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 12:58:06 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/07 09:26:27 by fee              ###   ########.fr       */
+/*   Updated: 2024/07/21 17:08:42 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_table *init(char **av)
 int philo(int ac, char **av)
 {
 	t_table *table;
-	if(parse(ac, av) == ERROR)
+	if(check_args(ac, av) == ERROR)
 		return(ERROR);
 	table = init(av);
 	if (!table)

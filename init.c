@@ -6,17 +6,86 @@
 /*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/07 09:39:46 by fee              ###   ########.fr       */
+/*   Updated: 2024/07/21 16:37:22 by fee              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int init_forks(t_table **table, int count);
+int init_forks(t_table **table, int count)
+{
+	int		i;
+	
+	i = -1;
+	(*table)->forks = (int *)malloc(sizeof(int) * count);
+	if(!(*table)->forks)
+	{
+		free(*table);
+		printit(MALLOC_ERROR);
+		return(ERROR);
+	}
+	while(++i < count)
+		(*table)->forks[i] = -1;
+	return(DONE);
+}
 
-t_table *init_table(char **av);
+t_table *init_table(char **av)
+{
+	t_table		*table;
 
-t_data init_data(char **av);
+	table = (t_table *)malloc(sizeof(t_table));
+	if(!table)
+	{
+		printit("philo: allocation failed");
+		return (NULL);
+	}
+	table->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* ft_atoi(av[1]));
+	table->threads = (pthread_t *)malloc(sizeof(pthread_t) * ft_atoi(av[1]));
+	if(!table->threads || !table->mutex)
+	{
+		printit("philo: allocation error");
+		if(!table->mutex)
+			free(table->mutex);
+		if(!table->threads)
+			free(table->threads);
+		free(table);
+		return(NULL);
+	}
+	table->check_death = 0;
+	if(init_forks(&table, ft_atoi(av[1]) == ERROR))
+		return(NULL);
+	return(table);
+	
+}
+
+t_data *init_data(char **av)
+{
+	t_data		*data;
+	
+	data = (t_data *)malloc(sizeof(t_data));
+	if(!data)
+	{
+		printit(MALLOC_ERROR);
+		return (NULL);
+	}
+	data->num = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
+	if(av[5])
+		data->cycle = ft_atoi(av[5]);
+	else
+		data->cycle = -1;
+	if(data->num == 0 || data->time_to_die == 0
+			|| data->time_to_eat == 0 || data->time_to_sleep == 0)	
+	{
+		printit("philo: argument is zero");
+		free(data);
+		return(NULL);
+	}
+	return(data);
+}
 
 void all_data(t_table *table, t_philo *philo, int id)
 {
