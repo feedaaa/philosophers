@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 15:34:52 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/21 16:32:23 by fee              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PHILO_H
 #define PHILO_H
@@ -26,11 +15,30 @@
 #define MALLOC_ERROR "philo: allocation error"
 
 // philo state
-#define DEAD -3
-#define THINK 0
-#define PICK_FORK 1
-#define SLEEP 2
-#define EAT 3
+#define DEAD				-3
+#define THINK				0
+#define PICK_FORK			1
+#define SLEEP				2
+#define EAT					3
+
+// colors
+# define RESET			"\033[0m"			// Reset
+# define BLACK			"\033[30m"			// Black
+# define RED			"\033[31m"			// Red
+# define GREEN			"\033[32m"			// Green
+# define YELLOW			"\033[33m"			// Yellow
+# define BLUE			"\033[34m"			// Blue
+# define MAGENTA		"\033[35m"			// Magenta
+# define CYAN			"\033[36m"			// Cyan
+# define WHITE			"\033[37m"			// White
+# define BOLDBLACK		"\033[1m\033[30m"	// Bold Black
+# define BOLDRED		"\033[1m\033[31m"	// Bold Red
+# define BOLDGREEN		"\033[1m\033[32m"	// Bold Green
+# define BOLDYELLOW		"\033[1m\033[33m"	// Bold Yellow
+# define BOLDBLUE		"\033[1m\033[34m"	// Bold Blue
+# define BOLDMAGENTA	"\033[1m\033[35m"	// Bold Magenta
+# define BOLDCYAN		"\033[1m\033[36m"	// Bold Cyan
+# define BOLDWHITE		"\033[1m\033[37m"	// Bold White
 
 /**
  * eat: time to eat
@@ -117,5 +125,10 @@ typedef struct s_table
 	t_philo			*philo;
 }	t_table;
 
+
+
+// utils 
 void printit(char *reason);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
 #endif
