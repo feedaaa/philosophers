@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/23 11:10:21 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/21 16:37:22 by fee              ###   ########.fr       */
+/*   Created: 2024/07/29 12:33:13 by ffidha            #+#    #+#             */
+/*   Updated: 2024/07/30 13:23:14 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int init_forks(t_table **table, int count)
 {
@@ -113,7 +113,7 @@ void all_data(t_table *table, t_philo *philo, int id)
 	(*philo).last_eat = 0;
 	(*philo).print = &table->print;
 }
-void init_philo(t_table *table)
+t_philo *init_philo(t_table *table)
 {
 	int i;
 	t_philo *philo;

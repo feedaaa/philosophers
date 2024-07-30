@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fee <fee@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 13:03:16 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/29 11:54:36 by fee              ###   ########.fr       */
+/*   Created: 2024/07/29 12:31:23 by ffidha            #+#    #+#             */
+/*   Updated: 2024/07/30 13:23:26 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 size_t	get_time(void)
 {

@@ -1,37 +1,43 @@
-NAME        = philo
+NAME				= philo
+CC					= gcc
+FLAGS				= -Wall -Wextra -Werror 
 
-CC          = cc
+SRCS        		=     src/doing_things.c \
+                          src/free_all.c \
+                          src/init.c \
+                          src/init_threads.c \
+                          src/life.c \
+                          src/parse.c \
+                          src/philo.c \
+                          src/record.c \
+                          src/time.c \
+                          utils/ft_atoi.c \
+                          utils/ft_putnbr_fd.c \
+                          utils/print_it.c \
+                          
+OBJS				= $(SRCS:.c=.o)
 
-CFLAGS      = -Wall -Wextra -Werror
-SRC         = 	philo.c \
-				doing_things.c \
-				init.c \
-				time.c \
+.c.o:
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
-UTILS		= 	ft_putstr_fd.c \
-				ft_atoi.c \
-				ft_putnbr_fd.c \
+RED		    		= \033[1;31m
+GREEN				= \033[1;32m
 
-UTILS_DIR	=	./utils/
+RM		    		= rm -f
 
-OBJ =				$(SRC:.c=.o)
+${NAME}:	${OBJS}
+			${CC} ${FLAGS} -o ${NAME} ${OBJS}
+			@echo "$(GREEN) Successfull Compilation"
 
-UTILS_OBJS	=		$(addprefix $(UTILS_DIR),$(UTILS:.c=.o))
-
-all: $(NAME)
-
-$(NAME): $(OBJ) $(UTILS_OBJS)
-	$(CC) $(CFLAGS) $(UTILS_OBJS) $(OBJ) -o $(NAME)
-	clear
-	@echo "Successful Compilation"
+all:		${NAME}
 
 clean:
-	@rm -rf $(OBJ)
-	@rm -rf $(UTILS_OBJS)
+			@ ${RM} *.o */*.o */*/*.o
+			@ echo "$(RED)Deleting objs ✔️"
 
-fclean: clean
-	rm -rf $(NAME)
+fclean:		clean
+			@ ${RM} ${NAME}
 
-re: fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
+.PHONY:		all clean fclean re

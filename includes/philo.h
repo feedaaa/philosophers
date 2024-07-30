@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 12:32:25 by ffidha            #+#    #+#             */
+/*   Updated: 2024/07/29 14:47:59 by ffidha           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 #define PHILO_H
@@ -10,8 +21,8 @@
 #include <limits.h>
 #include <sys/time.h>
 
-#define ERROR 1
-#define DONE 0
+#define ERROR				1
+#define DONE				0
 #define MALLOC_ERROR "philo: allocation error"
 
 // philo state
@@ -21,7 +32,8 @@
 #define SLEEP				2
 #define EAT					3
 
-// colors
+/*-----------------------------------_COLORS_----------------------------------*/
+
 # define RESET			"\033[0m"			// Reset
 # define BLACK			"\033[30m"			// Black
 # define RED			"\033[31m"			// Red
@@ -125,10 +137,49 @@ typedef struct s_table
 	t_philo			*philo;
 }	t_table;
 
+/*-----------------------------------_DOING THINGS_----------------------------------*/
 
+int					eat(t_philo *philo);
+int					slep(t_philo *philo);
+int					thunk(t_philo *philo);
+void				pick_record(t_philo *philo, size_t current, int fork_n);
 
-// utils 
-void printit(char *reason);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+/*-----------------------------------_UTILS_----------------------------------*/
+
+void				printit(char *reason);
+void				ft_putstr_fd(char *s, int fd);
+void				ft_putnbr_fd(int n, int fd);
+int					ft_atoi(const char *str);
+
+/*-----------------------------------_TIME_----------------------------------*/
+
+size_t				get_time(void);
+size_t				time_stamp(time_t start);
+int					sleepy(t_philo *philo, size_t period);
+
+/*-----------------------------------_INIT & PARSE_----------------------------------*/
+
+t_table				*init(char **av);
+int					philo(int ac, char **av);
+int					checkargs(int ac, char **av);
+int					init_forks(t_table **table, int count);
+t_table				*init_table(char **av);
+t_data				*init_data(char **av);
+void				all_data(t_table *table, t_philo *philo, int id);
+t_philo				*init_philo(t_table *table);
+int					init_mutex(t_table **table);
+int					init_threads(t_table **table);
+
+/*------------------------_LIFE_------------------------------------*/
+
+void				death_record(int n, int current_philo);
+int					check_death(size_t last_meal, size_t death_time);
+int					print_philo_state(t_philo *philo, int num_fork);
+void				*circle_of_life(void *routine);
+
+/*------------------------_FREE_------------------------------------*/
+
+void				clean_table(t_table *table);
+void				collect_philo(t_table **table);
+
 #endif
