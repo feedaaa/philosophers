@@ -14,7 +14,7 @@
 
 int	init_mutex(t_table **table)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	if (pthread_mutex_init(&(*table)->print, NULL))
@@ -37,14 +37,14 @@ int	init_mutex(t_table **table)
 
 static int	creat_threads(t_table **table)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	(*table)->start_time = get_time();
 	while (++i < (*table)->data->num)
 	{
-		if (pthread_create(&(*table)->threads[i],
-				NULL, &circle_of_life, &(*table)->philo[i]))
+		if (pthread_create(&(*table)->threads[i], NULL, &circle_of_life,
+				&(*table)->philo[i]))
 		{
 			printit("thread error");
 			clean_table(*table);

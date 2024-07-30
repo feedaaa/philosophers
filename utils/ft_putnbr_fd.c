@@ -6,13 +6,13 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:33:49 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/30 13:23:32 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:43:17 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void 	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }

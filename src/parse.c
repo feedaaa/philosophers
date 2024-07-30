@@ -20,9 +20,9 @@ int	checkargs(int ac, char **av)
 	j = 0;
 	i = 1;
 	if (ac < 5)
-		return(printit("error: less than 5 arguments\n"));
+		return (printit("error: less than 5 arguments\n"));
 	if (ac > 6)
-		return(printit("error: more than 6 arguments\n"));
+		return (printit("error: more than 6 arguments\n"));
 	if (av[1][0] == '0')
 		return (printit("no philos found\n"), 1);
 	while (av[i])

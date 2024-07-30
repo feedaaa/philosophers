@@ -14,9 +14,9 @@
 
 static int	check_fork(t_philo *philo, pthread_mutex_t *lock, int f)
 {
-	int		*fork;
-	int		forkn;
-	int		rn;
+	int	*fork;
+	int	forkn;
+	int	rn;
 
 	pthread_mutex_lock(lock);
 	if (!f)
@@ -29,8 +29,8 @@ static int	check_fork(t_philo *philo, pthread_mutex_t *lock, int f)
 		fork = philo->right_fork;
 		forkn = philo->right_forkn;
 	}
-	if ((*fork != philo->id && *fork != 0 && *fork != -1)
-		|| (*fork == -1 && philo->id % 2 != 0))
+	if ((*fork != philo->id && *fork != 0 && *fork != -1) || (*fork == -1
+			&& philo->id % 2 != 0))
 	{
 		*fork = USED_FORKS;
 		rn = print_philo_state(philo, forkn);

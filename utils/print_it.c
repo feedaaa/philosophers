@@ -12,10 +12,10 @@
 
 #include "../includes/philo.h"
 
-int printit(char *reason)
+int	printit(char *reason)
 {
 	ft_putstr_fd(reason, 2);
-	return(0);
+	return (0);
 }
 
 void	ft_putstr_fd(char *s, int fd)
