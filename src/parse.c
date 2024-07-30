@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:32:42 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/30 13:23:18 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/30 13:45:35 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ int	checkargs(int ac, char **av)
 	j = 0;
 	i = 1;
 	if (ac < 5)
-		return(bad("error: less than 5 arguments\n"));
+		return(printit("error: less than 5 arguments\n"));
 	if (ac > 6)
-		return(bad("error: more than 6 arguments\n"));
+		return(printit("error: more than 6 arguments\n"));
 	if (av[1][0] == '0')
-		return (bad("no philos found\n"), 1);
+		return (printit("no philos found\n"), 1);
 	while (av[i])
 	{
 		j = 0;
 		while (av[i][j])
 		{
 			if (!isdigit(av[i][j]))
-				return (bad("arguments is negative"), 1);
+				return (printit("arguments is negative"), 1);
 			j++;
 		}
 		i++;

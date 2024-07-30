@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:32:25 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/29 14:47:59 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/30 13:49:32 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@
 #define PICK_FORK			1
 #define SLEEP				2
 #define EAT					3
+//forks
+#define LEFT				0
+#define RIGHT				1
+#define USED_FORKS			0
+#define FREE_FORKS			1
 
 /*-----------------------------------_COLORS_----------------------------------*/
 
@@ -146,7 +151,7 @@ void				pick_record(t_philo *philo, size_t current, int fork_n);
 
 /*-----------------------------------_UTILS_----------------------------------*/
 
-void				printit(char *reason);
+int				printit(char *reason);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_atoi(const char *str);
@@ -179,7 +184,12 @@ void				*circle_of_life(void *routine);
 
 /*------------------------_FREE_------------------------------------*/
 
+int	forks(t_philo *philo);
+
+/*------------------------_FREE_------------------------------------*/
+
 void				clean_table(t_table *table);
 void				collect_philo(t_table **table);
+
 
 #endif

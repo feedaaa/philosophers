@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ommohame < ommohame@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 09:12:06 by ommohame          #+#    #+#             */
-/*   Updated: 2022/10/20 16:19:11 by ommohame         ###   ########.fr       */
+/*   Created: 2024/07/30 13:42:21 by ffidha            #+#    #+#             */
+/*   Updated: 2024/07/30 13:48:38 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_fork(t_philo *philo, pthread_mutex_t *lock, int f)
 {
 	int		*fork;
 	int		forkn;
-	int		ret;
+	int		rn;
 
 	pthread_mutex_lock(lock);
 	if (!f)
@@ -32,13 +32,13 @@ static int	check_fork(t_philo *philo, pthread_mutex_t *lock, int f)
 	if ((*fork != philo->id && *fork != 0 && *fork != -1)
 		|| (*fork == -1 && philo->id % 2 != 0))
 	{
-		*fork = USED;
-		ret = print_state(philo, forkn);
+		*fork = USED_FORKS;
+		rn = print_philo_state(philo, forkn);
 	}
 	else
-		ret = ERROR;
+		rn = ERROR;
 	pthread_mutex_unlock(lock);
-	return (ret);
+	return (rn);
 }
 
 static void	which_fork(t_philo *philo, int *side, pthread_mutex_t **lock, int f)
@@ -71,7 +71,7 @@ static void	which_fork(t_philo *philo, int *side, pthread_mutex_t **lock, int f)
 
 int	forks(t_philo *philo)
 {
-	int				ret;
+	int				rn;
 	int				side;
 	int				fork_check;
 	pthread_mutex_t	*lock;
@@ -82,17 +82,17 @@ int	forks(t_philo *philo)
 	{
 		if (philo->neat == 0 && fork_check == 0)
 			philo->last_eat = get_time();
-		ret = check_fork(philo, lock, side);
-		if (ret == SUCCESS)
+		rn = check_fork(philo, lock, side);
+		if (rn == DONE)
 		{
 			fork_check++;
 			which_fork(philo, &side, &lock, fork_check);
 		}
-		else if (ret == DEAD)
+		else if (rn == DEAD)
 			return (DEAD);
-		if (print_state(philo, DEAD) == DEAD)
+		if (print_philo_state(philo, DEAD) == DEAD)
 			return (DEAD);
 	}
 	philo->state = EAT;
-	return (SUCCESS);
+	return (DONE);
 }

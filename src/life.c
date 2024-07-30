@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:32:54 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/30 13:40:08 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/07/30 13:59:48 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	death_record(int n, int current_philo)
 	ft_putnbr_fd(current_philo, 1);
 	ft_putstr_fd(" : philo "BOLDRED, 1);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET RED" is dead ⚰️\n", 1);
+	ft_putstr_fd(RESET RED" is dead 💣\n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 

@@ -11,6 +11,7 @@ SRCS        		=     src/doing_things.c \
                           src/philo.c \
                           src/record.c \
                           src/time.c \
+						  src/forks.c \
                           utils/ft_atoi.c \
                           utils/ft_putnbr_fd.c \
                           utils/print_it.c \
@@ -32,7 +33,7 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 
 clean:
-			@ ${RM} *.o */*.o */*/*.o
+			@ ${RM} $(OBJS)
 			@ echo "$(RED)Deleting objs ✔️"
 
 fclean:		clean
