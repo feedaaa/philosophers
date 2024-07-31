@@ -1,30 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 12:33:13 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/30 19:56:14 by ffidha           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/philo.h"
 
-int	init_forks(t_table **table, int count)
+int	init_forks(t_table **table, int num)
 {
 	int		i;
 
 	i = -1;
-	(*table)->forks = (int *)malloc(sizeof(int) * count);
+	(*table)->forks = (int *)malloc(sizeof(int) * num);
 	if (!(*table)->forks)
 	{
 		free(*table);
-		printit("philo: malloc error");
+		printit("philo: error: malloc() failed");
 		return (ERROR);
 	}
-	while (++i < count)
+	while (++i < num)
 		(*table)->forks[i] = -1;
 	return (DONE);
 }
@@ -36,24 +24,24 @@ t_table	*init_table(char **av)
 	table = (t_table *)malloc(sizeof(t_table));
 	if (!table)
 	{
-		printit("philo: allocation failed");
+		printit("philo: error: malloc() failed");
 		return (NULL);
 	}
 	table->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* ft_atoi(av[1]));
 	table->threads = (pthread_t *)malloc(sizeof(pthread_t) * ft_atoi(av[1]));
-	if (!table->threads || !table->mutex)
+	if (!table->mutex || !table->threads)
 	{
-		printit("philo: allocation error");
-		if (!table->mutex)
+		printit("philo: error: malloc() failed");
+		if (table->mutex)
 			free(table->mutex);
-		if (!table->threads)
+		if (table->threads)
 			free(table->threads);
 		free(table);
 		return (NULL);
 	}
 	table->check_death = 0;
-	if (init_forks(&table, ft_atoi(av[1]) == ERROR))
+	if (init_forks(&table, ft_atoi(av[1])) == ERROR)
 		return (NULL);
 	return (table);
 }
@@ -65,7 +53,7 @@ t_data	*init_data(char **av)
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
 	{
-		printit("philo: malloc error");
+		printit("philo: error: malloc() failed");
 		return (NULL);
 	}
 	data->num = ft_atoi(av[1]);
@@ -76,17 +64,17 @@ t_data	*init_data(char **av)
 		data->cycle = ft_atoi(av[5]);
 	else
 		data->cycle = -1;
-	if (data->num == 0 || data->time_to_die == 0 || data->time_to_eat == 0
-		|| data->time_to_sleep == 0)
+	if (data->num == 0 || data->time_to_die == 0
+		|| data->time_to_eat == 0 || data->time_to_sleep == 0)
 	{
-		printit("philo: argument is zero");
+		printit("philo: error: argument is 0");
 		free(data);
 		return (NULL);
 	}
 	return (data);
 }
 
-void	all_data(t_table *table, t_philo *philo, int id)
+void	all_data_init(t_table *table, t_philo *philo, int id)
 {
 	(*philo).id = id;
 	(*philo).state = PICK_FORK;
@@ -123,10 +111,10 @@ t_philo	*init_philo(t_table *table)
 	if (!philo)
 	{
 		free(table);
-		printit("philo failed: malloc error");
+		printit("philo: error: malloc() failed");
 		return (NULL);
 	}
 	while (++i < table->data->num)
-		all_data(table, &(philo[i]), i + 1);
+		all_data_init(table, &(philo[i]), i + 1);
 	return (philo);
 }

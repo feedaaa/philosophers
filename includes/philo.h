@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 12:32:25 by ffidha            #+#    #+#             */
-/*   Updated: 2024/07/30 19:55:42 by ffidha           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef     PHILO_H
+# define    PHILO_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -26,11 +14,11 @@
 
 /*--------philo state-------*/
 
-# define DEAD				-3
+# define DEAD				-2
 # define THINK				0
 # define PICK_FORK			1
-# define SLEEP				2
-# define EAT				3
+# define SLEEP				3
+# define EAT				2
 
 /*----------forks----------*/
 # define LEFT				0
@@ -155,8 +143,8 @@ void				pick_record(t_philo *philo, size_t current, int fork_n);
 int					printit(char *reason);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-int					ft_atoi(const char *str);
-
+size_t				ft_atoi(const char *str);
+int					ft_isdigit(int c);
 /*-----------------------------------_TIME_--------------------------------*/
 
 size_t				get_time(void);
@@ -165,14 +153,14 @@ int					sleepy(t_philo *philo, size_t period);
 
 /*---------------------------_INIT & PARSE_--------------------------------*/
 
-t_table				*init(char **av);
-int					philo(int ac, char **av);
-int					checkargs(int ac, char **av);
 int					init_forks(t_table **table, int count);
 t_table				*init_table(char **av);
 t_data				*init_data(char **av);
-void				all_data(t_table *table, t_philo *philo, int id);
+void				all_data_init(t_table *table, t_philo *philo, int id);
+t_table				*init(char **av);
 t_philo				*init_philo(t_table *table);
+int					philo(int ac, char **av);
+int					parser(int ac, char **av);
 int					init_mutex(t_table **table);
 int					init_threads(t_table **table);
 

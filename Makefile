@@ -1,44 +1,53 @@
-NAME				= philo
-CC					= gcc
-FLAGS				= -Wall -Wextra -Werror 
 
-SRCS        		=     src/doing_things.c \
-                          src/free_all.c \
-                          src/init.c \
-                          src/init_threads.c \
-                          src/life.c \
-                          src/parse.c \
-                          src/philo.c \
-                          src/record.c \
-                          src/time.c \
-						  src/forks.c \
-                          utils/ft_atoi.c \
-                          utils/ft_putnbr_fd.c \
-                          utils/print_it.c \
-                          
-OBJS				= $(SRCS:.c=.o)
 
-.c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+NAME		=		philo
 
-RED		    		= \033[1;31m
-GREEN				= \033[1;32m
+SRCS		=		main.c				\
+					parser.c			\
+					printit.c			\
+					init_struct.c		\
+					init_philo.c		\
+					forks.c				\
+					clean.c				\
+					life.c				\
+					doing_things.c		\
+					time.c				\
+					record.c			\
 
-RM		    		= rm -f
+UTILS		=		ft_put_fd.c			\
+					ft_isdigit.c		\
+					ft_atoi.c			\
 
-${NAME}:	${OBJS}
-			${CC} ${FLAGS} -o ${NAME} ${OBJS}
-			@echo "$(GREEN) Successfull Compilation"
+SRCS_DIR	=		./srcs/
 
-all:		${NAME}
+UTILS_DIR	=		./utils/
 
-clean:
-			@ ${RM} $(OBJS)
-			@ echo "$(RED)Deleting objs ✔️"
+INCLUDES	=		./includes
 
-fclean:		clean
-			@ ${RM} ${NAME}
+CC			=		gcc
 
-re:			fclean all
+CFLAGS		=		-Wall -Werror -Wextra -pthread -g3
 
-.PHONY:		all clean fclean re
+OBJS		=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
+
+UTILS_OBJS	=		$(addprefix $(UTILS_DIR),$(UTILS:.c=.o))
+
+RM			=		rm -rf
+
+$(NAME)		:		$(UTILS_OBJS) $(OBJS)
+					$(CC) $(CFLAGS) $(UTILS_OBJS) $(OBJS) -I$(INCLUDES) -o $(NAME)
+					clear
+					@echo "Compilation  Successful!"
+
+all			:		$(NAME)
+
+clean		:
+					@$(RM) $(OBJS) 
+					@$(RM) $(UTILS_OBJS)
+
+fclean		:		clean
+					@$(RM) $(NAME)
+
+re			:		fclean all
+
+.PHONY		:		$(NAME) all clean fclean re
