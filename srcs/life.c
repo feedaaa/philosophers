@@ -6,9 +6,9 @@ void	death_record(int n, int current)
 {
 	ft_putstr_fd(RED, 1);
 	ft_putnbr_fd(current, 1);
-	ft_putstr_fd(": philo "BOLDRED, 1);
+	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET RED" is dead 💀\n", 1);
+	ft_putstr_fd(RESET RED" died 💀\n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 
@@ -39,7 +39,7 @@ int	print_philo_state(t_philo *philo, int fork_n)
 		return (DEAD);
 	}
 	else if (*philo->check_death != DEAD && fork_n != DEAD)
-		pick_record(philo, current, fork_n);
+		pick_record(philo, current);
 	pthread_mutex_unlock(philo->print);
 	return (DONE);
 }

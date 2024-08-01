@@ -2,14 +2,13 @@
 
 #include "../includes/philo.h"
 
-static void	fork_record(int n, int fork_n, int current)
+static void	fork_record(int n, int current)
 {
 	ft_putstr_fd(YELLOW, 1);
 	ft_putnbr_fd(current, 1);
-	ft_putstr_fd(": philo "BOLDYELLOW, 1);
+	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET YELLOW" has picked fork ", 1);
-	ft_putnbr_fd(fork_n, 1);
+	ft_putstr_fd(RESET YELLOW" has taken a fork ", 1);
 	ft_putstr_fd(" 🥢\n", 1);
 	ft_putstr_fd(RESET, 1);
 }
@@ -18,7 +17,7 @@ static void	eat_record(int n, int current)
 {
 	ft_putstr_fd(GREEN, 1);
 	ft_putnbr_fd(current, 1);
-	ft_putstr_fd(": philo "BOLDGREEN, 1);
+	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
 	ft_putstr_fd(RESET GREEN" is eating 🍝\n", 1);
 	ft_putstr_fd(RESET, 1);
@@ -28,7 +27,7 @@ static void	sleep_record(int n, int current)
 {
 	ft_putstr_fd(BLUE, 1);
 	ft_putnbr_fd(current, 1);
-	ft_putstr_fd(": philo "BOLDBLUE, 1);
+	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
 	ft_putstr_fd(RESET BLUE" is sleeping 😴\n", 1);
 	ft_putstr_fd(RESET, 1);
@@ -38,16 +37,16 @@ static void	think_record(int n, int current)
 {
 	ft_putstr_fd(YELLOW, 1);
 	ft_putnbr_fd(current, 1);
-	ft_putstr_fd(": philo "BOLDYELLOW, 1);
+	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
 	ft_putstr_fd(RESET YELLOW" is thinking 💭\n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 
-void	pick_record(t_philo *philo, size_t current, int fork_n)
+void	pick_record(t_philo *philo, size_t current)
 {
 	if (philo->state == PICK_FORK)
-		fork_record(philo->id, fork_n, current);
+		fork_record(philo->id, current);
 	else if (philo->state == EAT)
 		eat_record(philo->id, current);
 	else if (philo->state == SLEEP)

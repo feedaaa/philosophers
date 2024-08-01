@@ -136,7 +136,7 @@ typedef struct s_table
 int					eat(t_philo *philo);
 int					slep(t_philo *philo);
 int					thunk(t_philo *philo);
-void				pick_record(t_philo *philo, size_t current, int fork_n);
+void				pick_record(t_philo *philo, size_t current);
 
 /*-----------------------------------_UTILS_-------------------------------*/
 
