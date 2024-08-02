@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:26:51 by ffidha            #+#    #+#             */
-/*   Updated: 2024/08/01 13:26:53 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:44:02 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	death_record(int n, int current)
 	ft_putnbr_fd(current, 1);
 	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET RED" died 💀\n", 1);
+	ft_putstr_fd(RESET RED" died \n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 

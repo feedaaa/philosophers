@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:27:16 by ffidha            #+#    #+#             */
-/*   Updated: 2024/08/01 13:27:21 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:43:51 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	fork_record(int n, int current)
 	ft_putnbr_fd(current, 1);
 	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET YELLOW" has taken a fork ", 1);
-	ft_putstr_fd(" 🥢\n", 1);
+	ft_putstr_fd(RESET YELLOW" has taken a fork \n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 
@@ -29,7 +28,7 @@ static void	eat_record(int n, int current)
 	ft_putnbr_fd(current, 1);
 	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET GREEN" is eating 🍝\n", 1);
+	ft_putstr_fd(RESET GREEN" is eating \n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 
@@ -39,7 +38,7 @@ static void	sleep_record(int n, int current)
 	ft_putnbr_fd(current, 1);
 	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET BLUE" is sleeping 😴\n", 1);
+	ft_putstr_fd(RESET BLUE" is sleeping \n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 
@@ -49,7 +48,7 @@ static void	think_record(int n, int current)
 	ft_putnbr_fd(current, 1);
 	ft_putstr_fd(" ", 2);
 	ft_putnbr_fd(n, 1);
-	ft_putstr_fd(RESET YELLOW" is thinking 💭\n", 1);
+	ft_putstr_fd(RESET YELLOW" is thinking \n", 1);
 	ft_putstr_fd(RESET, 1);
 }
 

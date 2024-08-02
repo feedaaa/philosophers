@@ -6,7 +6,7 @@
 #    By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 13:28:08 by ffidha            #+#    #+#              #
-#    Updated: 2024/08/01 13:28:11 by ffidha           ###   ########.fr        #
+#    Updated: 2024/08/02 10:20:10 by ffidha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INCLUDES	=		./includes
 
 CC			=		gcc
 
-CFLAGS		=		-Wall -Werror -Wextra -pthread -g3
+CFLAGS		=		-Wall -Werror -Wextra -pthread
 
 OBJS		=		$(addprefix $(SRCS_DIR),$(SRCS:.c=.o))
 
@@ -60,4 +60,4 @@ fclean		:		clean
 
 re			:		fclean all
 
-.PHONY		:		$(NAME) all clean fclean re
+.PHONY		:	 all clean fclean re

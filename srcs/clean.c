@@ -6,7 +6,7 @@
 /*   By: ffidha <ffidha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 13:26:12 by ffidha            #+#    #+#             */
-/*   Updated: 2024/08/01 13:26:14 by ffidha           ###   ########.fr       */
+/*   Updated: 2024/08/01 19:32:55 by ffidha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void	destroy_mutex(t_table **table)
 	while (++i < (*table)->data->num)
 	{
 		if (pthread_mutex_destroy(&(*table)->mutex[i]))
-			printit("philo: nutex destroy failed");
+			printit("philo: mutex destroy failed");
 	}
 	if (pthread_mutex_destroy(&(*table)->print))
-		printit("philo: nutex destroy failed");
+		printit("philo: mutex destroy failed");
 }
 
 void	collect_philo(t_table **table)
